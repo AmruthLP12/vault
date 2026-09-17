@@ -11,6 +11,24 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.2.0] — 2026-09-17
+
+### Added
+- **Footer component** (`src/components/Footer.tsx`) — 3-column layout:
+  - **Brand column**: Vaultool logo, tagline, link to project GitHub (`CodeWithAmruth/vault`)
+  - **Pages column**: Links to `/encrypt`, `/decrypt`, and sitemap
+  - **Author column**: Card for Amruth LP with links to portfolio (`amruthlp.vercel.app`), GitHub (`AmruthLP12`), and blog (`technodrishti.vercel.app`)
+  - **Bottom bar**: Copyright, MIT license credit, tech stack badge
+- **GitHub icon button** in the Nav — links to `CodeWithAmruth/vault` with hover glow, separated from nav pills by a subtle divider
+- `App.tsx` wrapped in flex column layout so footer always sticks to bottom of page
+
+### Changed
+- `index.html` — updated `<meta name="author">` to `Amruth LP` and added `<link rel="me">` pointing to author GitHub
+- `index.html` — JSON-LD `creator` updated from generic org to `Person` schema with `sameAs` links for GitHub and blog
+- `App.tsx` — Routes now wrapped in `<main>` semantic element for better a11y
+
+---
+
 ## [1.1.1] — 2026-09-17
 
 ### Fixed
