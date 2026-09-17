@@ -2,105 +2,61 @@ import { useState } from 'react'
 import { encryptEnv } from '../crypto/encryptEnv'
 
 // ── Password strength ─────────────────────────────────────────────────────────
-interface StrengthResult {
-  score: 0 | 1 | 2 | 3 | 4
-  label: string
-  color: string
-  feedback: string[]
-}
+interface StrengthResult { score: 0|1|2|3|4; label: string; color: string; feedback: string[] }
 
 function getPasswordStrength(password: string): StrengthResult {
   if (!password) return { score: 0, label: '', color: '', feedback: [] }
-
   const feedback: string[] = []
   let score = 0
-
-  if (password.length >= 8) score++
-  else feedback.push('Use at least 8 characters')
-
+  if (password.length >= 8)  score++; else feedback.push('At least 8 characters')
   if (password.length >= 16) score++
-
-  if (/[A-Z]/.test(password)) score++
-  else feedback.push('Add uppercase letters')
-
-  if (/[0-9]/.test(password)) score++
-  else feedback.push('Add numbers')
-
-  if (/[^A-Za-z0-9]/.test(password)) score++
-  else feedback.push('Add special characters (!@#$…)')
-
-  const capped = Math.min(4, score) as 0 | 1 | 2 | 3 | 4
-  const labels: Record<number, string> = { 0: '', 1: 'Weak', 2: 'Fair', 3: 'Good', 4: 'Strong' }
-  const colors: Record<number, string> = { 0: '', 1: '#ef4444', 2: '#f59e0b', 3: '#3b82f6', 4: '#22c55e' }
-
-  return { score: capped, label: labels[capped], color: colors[capped], feedback }
+  if (/[A-Z]/.test(password)) score++; else feedback.push('Add uppercase letters')
+  if (/[0-9]/.test(password)) score++; else feedback.push('Add numbers')
+  if (/[^A-Za-z0-9]/.test(password)) score++; else feedback.push('Add special chars (!@#$…)')
+  const s = Math.min(4, score) as 0|1|2|3|4
+  const labels  = ['', 'Weak', 'Fair', 'Good', 'Strong']
+  const colors  = ['', '#ef4444', '#f59e0b', '#3b82f6', '#22c55e']
+  const classes = ['', 'strength-1', 'strength-2', 'strength-3', 'strength-4']
+  return { score: s, label: labels[s], color: colors[s], feedback }
+  void classes
 }
 
-function segmentColor(score: number): string {
-  if (score === 1) return 'bg-red-500'
-  if (score === 2) return 'bg-amber-400'
-  if (score === 3) return 'bg-blue-500'
-  return 'bg-green-500'
+function segClass(score: number): string {
+  return ['', 'strength-1', 'strength-2', 'strength-3', 'strength-4'][score] ?? ''
 }
 
-// ── SVG icons ─────────────────────────────────────────────────────────────────
+// ── Icons ─────────────────────────────────────────────────────────────────────
 function EyeIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-    </svg>
-  )
+  return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
 }
-
 function EyeOffIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 4.411m0 0L21 21" />
-    </svg>
-  )
+  return <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 4.411m0 0L21 21"/></svg>
 }
-
-function Spinner() {
-  return (
-    <svg className="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-    </svg>
-  )
+function SpinnerIcon() {
+  return <svg className="vt-spinner w-4 h-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function EncryptPage() {
-  const [envText, setEnvText]       = useState('')
-  const [password, setPassword]     = useState('')
-  const [showPassword, setShow]     = useState(false)
-  const [error, setError]           = useState('')
-  const [success, setSuccess]       = useState(false)
-  const [isLoading, setIsLoading]   = useState(false)
+  const [envText, setEnvText]     = useState('')
+  const [password, setPassword]   = useState('')
+  const [showPwd, setShowPwd]     = useState(false)
+  const [error, setError]         = useState('')
+  const [success, setSuccess]     = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const strength   = getPasswordStrength(password)
-  const lineCount  = envText ? envText.split('\n').filter(l => l.trim() && !l.startsWith('#')).length : 0
+  const strength  = getPasswordStrength(password)
+  const lineCount = envText ? envText.split('\n').filter(l => l.trim() && !l.startsWith('#')).length : 0
 
   async function handleEncrypt() {
-    setError('')
-    setSuccess(false)
-
-    if (!envText || !password) {
-      setError('Please enter env content and a password.')
-      return
-    }
-    if (strength.score < 2) {
-      setError('Password is too weak — ' + (strength.feedback[0] ?? 'use a stronger password.'))
-      return
-    }
-
+    setError(''); setSuccess(false)
+    if (!envText || !password) { setError('Please enter env content and a password.'); return }
+    if (strength.score < 2)    { setError('Password is too weak — ' + (strength.feedback[0] ?? 'use a stronger password.')); return }
     setIsLoading(true)
     try {
       const encrypted = await encryptEnv(envText, password)
       download(encrypted, 'secrets.envvault')
       setSuccess(true)
-      // Zeroize password from state after successful encryption
       setTimeout(() => setPassword(''), 100)
     } catch {
       setError('Encryption failed. Please try again.')
@@ -113,101 +69,111 @@ export default function EncryptPage() {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url  = URL.createObjectURL(blob)
     const a    = document.createElement('a')
-    a.href     = url
-    a.download = filename
-    a.click()
+    a.href = url; a.download = filename; a.click()
     URL.revokeObjectURL(url)
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-8">
+    <div className="vt-page">
+      <div className="vt-page-inner">
 
-        <h2 className="text-3xl font-bold text-gray-900 mb-1">Encrypt .env</h2>
-        <p className="text-gray-500 text-sm mb-6">
-          Paste your environment variables, set a strong password, and download an encrypted vault.
-        </p>
+        {/* ── Page heading ── */}
+        <div style={{ marginBottom: '1.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
+            <span style={{ fontSize: '1.5rem' }}>🔒</span>
+            <h2 className="vt-heading">Encrypt .env</h2>
+          </div>
+          <p className="vt-subheading">
+            Paste your environment variables, set a strong password, and download an encrypted vault.
+          </p>
+        </div>
 
         {/* ── Alerts ── */}
         {error && (
-          <div role="alert" aria-live="polite"
-            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-5 text-sm flex items-start gap-2">
-            <span>❌</span> <span>{error}</span>
+          <div className="vt-alert-error" role="alert" aria-live="polite">
+            <span>❌</span><span>{error}</span>
           </div>
         )}
         {success && (
-          <div role="status" aria-live="polite"
-            className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-5 text-sm flex items-start gap-2">
+          <div className="vt-alert-success" role="status" aria-live="polite">
             <span>✅</span>
-            <span><strong>secrets.envvault</strong> has been downloaded. Store it safely and share the password separately.</span>
+            <span><strong>secrets.envvault</strong> downloaded. Share the file and password separately.</span>
           </div>
         )}
 
-        <div className="space-y-5">
+        {/* ── Card ── */}
+        <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
 
-          {/* ── Env textarea ── */}
+          {/* Env textarea */}
           <div>
-            <div className="flex justify-between items-center mb-2">
-              <label htmlFor="env-input" className="text-sm font-medium text-gray-700">
-                Environment variables
-              </label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <label htmlFor="env-input" className="vt-label">Environment variables</label>
               {lineCount > 0 && (
-                <span className="text-xs text-gray-400">{lineCount} variable{lineCount !== 1 ? 's' : ''}</span>
+                <span className="vt-badge">{lineCount} variable{lineCount !== 1 ? 's' : ''}</span>
               )}
             </div>
             <textarea
               id="env-input"
-              rows={8}
-              placeholder={"Paste .env content here\n\nExample:\nDATABASE_URL=postgres://...\nAPI_KEY=abc123\nSECRET_TOKEN=xyz789"}
+              rows={9}
+              placeholder={"# Paste your .env content\nDATABASE_URL=postgres://user:pass@host/db\nAPI_KEY=sk-abc123\nSECRET_TOKEN=xyz789"}
               value={envText}
               onChange={e => setEnvText(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg font-mono text-sm
-                focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none transition-colors"
+              className="vt-input mono"
+              style={{ resize: 'none', lineHeight: '1.6' }}
             />
           </div>
 
-          {/* ── Password field ── */}
+          <div className="vt-divider" />
+
+          {/* Password field */}
           <div>
-            <label htmlFor="password-input" className="block text-sm font-medium text-gray-700 mb-2">
-              Password
-            </label>
-            <div className="relative">
+            <label htmlFor="password-input" className="vt-label">Encryption password</label>
+            <div style={{ position: 'relative' }}>
               <input
                 id="password-input"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Enter a strong encryption password"
+                type={showPwd ? 'text' : 'password'}
+                placeholder="Enter a strong password…"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleEncrypt()}
-                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg
-                  focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                className="vt-input"
+                style={{ paddingRight: '2.75rem' }}
               />
               <button
                 type="button"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-                onClick={() => setShow(p => !p)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                aria-label={showPwd ? 'Hide password' : 'Show password'}
+                onClick={() => setShowPwd(p => !p)}
+                style={{
+                  position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  color: 'var(--text-muted)', padding: '0.25rem',
+                  display: 'flex', alignItems: 'center',
+                  transition: 'color 0.2s',
+                }}
               >
-                {showPassword ? <EyeOffIcon /> : <EyeIcon />}
+                {showPwd ? <EyeOffIcon /> : <EyeIcon />}
               </button>
             </div>
 
-            {/* ── Strength bar ── */}
+            {/* Strength bar */}
             {password && (
-              <div className="mt-2">
-                <div className="flex gap-1 mb-1">
-                  {[1, 2, 3, 4].map(i => (
-                    <div
-                      key={i}
-                      className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
-                        i <= strength.score ? segmentColor(strength.score) : 'bg-gray-200'
-                      }`}
+              <div style={{ marginTop: '0.6rem' }}>
+                <div style={{ display: 'flex', gap: '4px', marginBottom: '0.35rem' }}>
+                  {[1,2,3,4].map(i => (
+                    <div key={i} className={i <= strength.score ? segClass(strength.score) : ''}
+                      style={{
+                        height: '4px', flex: 1, borderRadius: '999px',
+                        background: i <= strength.score ? undefined : 'rgba(99,130,255,0.10)',
+                        transition: 'background 0.3s ease',
+                      }}
                     />
                   ))}
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-500">{strength.feedback[0] ?? ''}</span>
-                  <span className="text-xs font-medium" style={{ color: strength.color || '#9ca3af' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    {strength.feedback[0] ?? ''}
+                  </span>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 600, color: strength.color || 'var(--text-muted)' }}>
                     {strength.label}
                   </span>
                 </div>
@@ -215,20 +181,23 @@ export default function EncryptPage() {
             )}
           </div>
 
-          {/* ── Encrypt button ── */}
+          {/* Encrypt button */}
           <button
             id="encrypt-btn"
+            className="vt-btn-primary"
             onClick={handleEncrypt}
             disabled={isLoading}
-            className="w-full bg-blue-600 text-white font-semibold py-3 px-4 rounded-lg
-              hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-              transition-all disabled:opacity-60 disabled:cursor-not-allowed
-              flex items-center justify-center gap-2"
           >
-            {isLoading ? <><Spinner /> Encrypting…</> : '🔒 Encrypt & Download'}
+            {isLoading ? <><SpinnerIcon /> Encrypting…</> : '🔒 Encrypt & Download'}
           </button>
 
         </div>
+
+        {/* ── How it works hint ── */}
+        <p style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '1.25rem', lineHeight: 1.6 }}>
+          AES-256-GCM · PBKDF2 / 250k iterations · All crypto runs in your browser
+        </p>
+
       </div>
     </div>
   )

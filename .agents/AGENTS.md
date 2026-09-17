@@ -8,7 +8,8 @@ This file provides instructions and context for any AI agent (or developer) work
 
 **EnvVault** is a browser-based `.env` file encryption/decryption tool. All cryptography runs 100% client-side using the native **Web Crypto API**. There is no backend, no database, and no user accounts.
 
-- **Live URL**: https://envvault.vercel.app
+- **Live URL**: https://vaultool.vercel.app
+- **GitHub**: https://github.com/CodeWithAmruth/vault
 - **Tech stack**: React 19, TypeScript, Tailwind CSS v4, Vite 7, React Router v7
 - **Package manager**: `pnpm` (do not use npm or yarn)
 - **Node version**: ≥ 18
@@ -154,7 +155,7 @@ The project deploys automatically to Vercel on every push to `main`.
 - Build command: `pnpm build`
 - Output directory: `dist/`
 - Security headers: defined in `vercel.json` — do not modify without security review
-- The `public/` directory is served at the root: e.g., `/public/logo.jpg` → `https://envvault.vercel.app/logo.jpg`
+- The `public/` directory is served at the root: e.g., `/public/logo.jpg` → `https://vaultool.vercel.app/logo.jpg`
 
 ---
 

@@ -4,6 +4,13 @@
 
 <h1 align="center">🔐 EnvVault</h1>
 
+<p align="center">
+  <a href="https://vaultool.vercel.app"><strong>🌐 Live Demo</strong></a> &nbsp;·&nbsp;
+  <a href="https://github.com/CodeWithAmruth/vault"><strong>GitHub</strong></a> &nbsp;·&nbsp;
+  <a href="https://vaultool.vercel.app/encrypt">Encrypt</a> &nbsp;·&nbsp;
+  <a href="https://vaultool.vercel.app/decrypt">Decrypt</a>
+</p>
+
 ---
 
 ## 🎯 One-Line Pitch

@@ -6,7 +6,7 @@
 
   <!-- Home — redirects to /encrypt -->
   <url>
-    <loc>https://envvault.vercel.app/</loc>
+    <loc>https://vaultool.vercel.app/</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- Encrypt page -->
   <url>
-    <loc>https://envvault.vercel.app/encrypt</loc>
+    <loc>https://vaultool.vercel.app/encrypt</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -22,7 +22,7 @@
 
   <!-- Decrypt page -->
   <url>
-    <loc>https://envvault.vercel.app/decrypt</loc>
+    <loc>https://vaultool.vercel.app/decrypt</loc>
     <lastmod>2026-09-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
