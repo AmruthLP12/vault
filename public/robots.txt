@@ -1,0 +1,15 @@
+# robots.txt — EnvVault
+# https://envvault.vercel.app
+
+User-agent: *
+Allow: /
+Allow: /encrypt
+Allow: /decrypt
+
+# Static assets
+Disallow: /src/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Sitemap location
+Sitemap: https://envvault.vercel.app/sitemap.xml
