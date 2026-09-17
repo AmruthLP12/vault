@@ -2,9 +2,82 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>env-vault</title>
+
+    <!-- ── Primary SEO ─────────────────────────────────────────── -->
+    <title>EnvVault — Encrypt & Decrypt .env Files in the Browser</title>
+    <meta name="description"
+      content="EnvVault lets you encrypt and decrypt .env files entirely in your browser using AES-256-GCM and PBKDF2. No server, no uploads — your secrets never leave your machine." />
+    <meta name="keywords"
+      content="env encryption, dotenv, AES-256, PBKDF2, developer tools, secrets manager, environment variables, offline encryption, open source" />
+    <meta name="author" content="EnvVault" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://envvault.vercel.app/" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- ── Favicon ───────────────────────────────────────────────── -->
+    <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+    <link rel="apple-touch-icon" href="/logo.jpg" />
+
+    <!-- ── Open Graph (Facebook / LinkedIn / Discord) ──────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="https://envvault.vercel.app/" />
+    <meta property="og:title"       content="EnvVault — Encrypt .env Files in the Browser" />
+    <meta property="og:description" content="Encrypt and decrypt your .env secrets using AES-256-GCM — 100% client-side, zero server, zero trust required." />
+    <meta property="og:image"       content="https://envvault.vercel.app/logo.jpg" />
+    <meta property="og:image:alt"   content="EnvVault logo — a neon cyan lock icon on a dark background" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale"      content="en_US" />
+    <meta property="og:site_name"   content="EnvVault" />
+
+    <!-- ── Twitter Card ─────────────────────────────────────────── -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:url"         content="https://envvault.vercel.app/" />
+    <meta name="twitter:title"       content="EnvVault — Encrypt .env Files in the Browser" />
+    <meta name="twitter:description" content="Encrypt and decrypt your .env secrets using AES-256-GCM — 100% client-side, zero server, zero trust required." />
+    <meta name="twitter:image"       content="https://envvault.vercel.app/logo.jpg" />
+    <meta name="twitter:image:alt"   content="EnvVault logo" />
+
+    <!-- ── Theme ────────────────────────────────────────────────── -->
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- ── JSON-LD Structured Data ──────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "EnvVault",
+      "url": "https://envvault.vercel.app",
+      "description": "A browser-based tool to encrypt and decrypt .env files using AES-256-GCM and PBKDF2. All cryptography runs client-side — no server, no uploads.",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any (browser-based)",
+      "browserRequirements": "Requires a modern browser with Web Crypto API support",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "AES-256-GCM encryption",
+        "PBKDF2 key derivation with 250,000 iterations",
+        "100% client-side — no data leaves the browser",
+        "Password strength meter",
+        "Drag-and-drop file upload",
+        "Auto-clear decrypted secrets after 60 seconds",
+        "Self-describing .envvault file format"
+      ],
+      "creator": {
+        "@type": "Organization",
+        "name": "EnvVault",
+        "url": "https://envvault.vercel.app"
+      },
+      "softwareVersion": "1.1.0",
+      "license": "https://opensource.org/licenses/MIT",
+      "screenshot": "https://envvault.vercel.app/logo.jpg"
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
