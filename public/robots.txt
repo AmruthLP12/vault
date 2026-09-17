@@ -1,5 +1,5 @@
 # robots.txt — EnvVault
-# https://envvault.vercel.app
+# https://vaultool.vercel.app
 
 User-agent: *
 Allow: /
@@ -12,4 +12,4 @@ Disallow: /.git/
 Disallow: /node_modules/
 
 # Sitemap location
-Sitemap: https://envvault.vercel.app/sitemap.xml
+Sitemap: https://vaultool.vercel.app/sitemap.xml

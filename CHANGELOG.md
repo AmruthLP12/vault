@@ -11,6 +11,14 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [1.1.1] — 2026-09-17
+
+### Fixed
+- **404 on page refresh** — added `rewrites` rule in `vercel.json` so Vercel serves `index.html` for all SPA routes (`/encrypt`, `/decrypt`) instead of returning 404
+- **CSP font-src** — updated Content-Security-Policy to allow `https://fonts.googleapis.com` (stylesheet) and `https://fonts.gstatic.com` (font files) so Inter loads correctly in production
+
+---
+
 ## [1.1.0] — 2026-09-17
 
 ### Added
@@ -80,6 +88,6 @@ Versions follow [Semantic Versioning](https://semver.org/).
 
 ---
 
-[Unreleased]: https://github.com/your-username/vault/compare/v1.1.0...HEAD
-[1.1.0]: https://github.com/your-username/vault/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/your-username/vault/releases/tag/v1.0.0
+[Unreleased]: https://github.com/CodeWithAmruth/vault/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/CodeWithAmruth/vault/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/CodeWithAmruth/vault/releases/tag/v1.0.0
